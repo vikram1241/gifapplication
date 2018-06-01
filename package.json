@@ -1,0 +1,50 @@
+{
+  "name": "reactboilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf ./build",
+    "build": "./node_modules/.bin/webpack",
+    "serve": "./node_modules/.bin/webpack-dev-server --open",
+    "lint": "./node_modules/.bin/eslint './src/**/*.js' --ignore-path .eslintignore"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.2",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-react": "^7.7.0",
+    "html-webpack-plugin": "^3.1.0",
+    "style-loader": "^0.20.3",
+    "webpack": "^4.3.0",
+    "webpack-cli": "^2.0.13",
+    "webpack-dev-server": "^3.1.1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.5",
+    "material-ui": "^0.20.0",
+    "moment": "^2.21.0",
+    "prop-types": "^15.6.1",
+    "react": "^16.3.0",
+    "react-cookie": "^1.0.5",
+    "react-dom": "^16.3.0",
+    "react-flexbox-grid": "^2.0.0",
+    "react-infinite-scroller": "^1.1.3",
+    "react-router": "^3.0.2",
+    "react-svg-loader": "^2.1.0",
+    "react-tap-event-plugin": "^3.0.2",
+    "recharts": "^1.0.0-beta.10",
+    "socket.io-client": "^2.1.0",
+    "superagent": "^3.8.2"
+  },
+  "proxy": "http://localhost:3000/"
+
+}
