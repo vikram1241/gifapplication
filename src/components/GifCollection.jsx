@@ -131,7 +131,7 @@ export default class App extends React.Component {
         searchCollnProgress: true
       })
 
-      let gifUrl = `/api/v1/gyp/${searchQuery}`;
+      let gifUrl = `/api/v1/gyp/gifs/${searchQuery}`;
       request
         .get(gifUrl)
         .end((err, res) => {
@@ -203,7 +203,17 @@ export default class App extends React.Component {
     }
 
     if(this.state.collnQueryInProgress) {
-      this.collnProgress();
+      return (
+        <Grid fluid>
+          <Row center="xs">
+            <Col xs={12}>
+              <div style={{padding: "200px"}}>
+                <LinearProgress mode="indeterminate"/>
+              </div>
+            </Col>
+          </Row>
+        </Grid>
+      )
     }
 
     return(
@@ -222,6 +232,9 @@ export default class App extends React.Component {
                   fullWidth={true}
                   onChange={this.handleSearchQuery}
                 />
+              </Col>
+              <Col>
+                <RaisedButton label={"Reset"} onClick={this.getGifvideos} />
               </Col>
             </Row>
 

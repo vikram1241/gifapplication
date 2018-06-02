@@ -42,7 +42,7 @@ export default class FavouriteGif extends React.Component {
 			collnQueryInProgress: true
 		})
 		request
-		 .get(`/api/v1/gyp/favouriteList`)
+		 .get(`/api/v1/gyp/list`)
 		 .end((err, res) => {
 		 	  if(err){
           let {msg, unauthorized} = HTTPErrorNormalizer.normalizeError(err, res);

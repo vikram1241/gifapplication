@@ -30,7 +30,7 @@ router.get('/trending', function(req, res){
 * api/v1/gyp/:{serachTring} end uri
 * this router is for getting GIF's matching to the searchString with limit default 10;
 */
-router.get('/:gif', function(req, res){
+router.get('/gifs/:gif', function(req, res){
 	try {
 
 		let limit = req.query.limit || 10;
@@ -84,7 +84,7 @@ router.post('/favourites', function(req, res){
 * this router is for getting favouriteList GIF's with limit default 10;
 * gets data from database
 */
-router.get('/favouriteList', function(req, res){
+router.get('/list', function(req, res){
 	try {
 
 		let limit = req.query.limit || 10 ;
@@ -96,7 +96,7 @@ router.get('/favouriteList', function(req, res){
 				res.status(404).send(" error in getting favourites");
 				return;
 			} else {
-
+				logger.debug("fetching from db", result);
 				res.status(200).send(result);
 				return;
 			}
