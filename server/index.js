@@ -14,8 +14,8 @@ const app = express();
 app.use(helmet());
 
 //Initilise mongo connection
-/*const mongoConn = require('./mongoConnection');
-mongoConn();*/
+const mongoConn = require('./mongoConnection');
+mongoConn();
 
 morgan.token('time', (req, res) => dateFormat.asString(dateFormat.ISO8601_FORMAT, new Date())); //Both morgan and log4js are configured to same date format, so that log reading is meaningful and not confusing due to different date formats
 app.use(morgan('[:time] :remote-addr :method :url :status :res[content-length] :response-time ms'));

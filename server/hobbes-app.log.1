@@ -1,0 +1,37 @@
+[02 06 2018 04:24:49.374] [DEBUG] - Error in saving favourite gif  { ValidationError: collection validation failed: source: Path `source` is required.
+    at ValidationError.inspect (/home/vikram/workspace/practice/gypapp/hobbesClientV1/server/node_modules/mongoose/lib/error/validation.js:56:24)
+    at formatValue (util.js:418:38)
+    at inspect (util.js:307:10)
+    at Object.format (util.js:169:12)
+    at Object.inspect (/home/vikram/workspace/practice/gypapp/hobbesClientV1/server/node_modules/log4js/lib/layouts.js:36:66)
+    at formatValue (util.js:418:38)
+    at inspect (util.js:307:10)
+    at Object.format (util.js:231:18)
+    at formatLogData (/home/vikram/workspace/practice/gypapp/hobbesClientV1/server/node_modules/log4js/lib/layouts.js:55:22)
+    at Object.formatMessage [as m] (/home/vikram/workspace/practice/gypapp/hobbesClientV1/server/node_modules/log4js/lib/layouts.js:216:12)
+    at replaceToken (/home/vikram/workspace/practice/gypapp/hobbesClientV1/server/node_modules/log4js/lib/layouts.js:291:42)
+    at /home/vikram/workspace/practice/gypapp/hobbesClientV1/server/node_modules/log4js/lib/layouts.js:351:29
+    at app (/home/vikram/workspace/practice/gypapp/hobbesClientV1/server/node_modules/log4js/lib/appenders/file.js:55:18)
+    at appenders.forEach (/home/vikram/workspace/practice/gypapp/hobbesClientV1/server/node_modules/log4js/lib/log4js.js:142:5)
+    at Array.forEach (<anonymous>)
+    at Logger.sendLogEventToAppender [as dispatch] (/home/vikram/workspace/practice/gypapp/hobbesClientV1/server/node_modules/log4js/lib/log4js.js:141:13)
+  errors: 
+   { source: 
+      { ValidatorError: Path `source` is required.
+    at new ValidatorError (/home/vikram/workspace/practice/gypapp/hobbesClientV1/server/node_modules/mongoose/lib/error/validator.js:25:11)
+    at validate (/home/vikram/workspace/practice/gypapp/hobbesClientV1/server/node_modules/mongoose/lib/schematype.js:805:13)
+    at /home/vikram/workspace/practice/gypapp/hobbesClientV1/server/node_modules/mongoose/lib/schematype.js:854:11
+    at Array.forEach (<anonymous>)
+    at SchemaString.SchemaType.doValidate (/home/vikram/workspace/practice/gypapp/hobbesClientV1/server/node_modules/mongoose/lib/schematype.js:814:19)
+    at /home/vikram/workspace/practice/gypapp/hobbesClientV1/server/node_modules/mongoose/lib/document.js:1712:9
+    at process._tickCallback (internal/process/next_tick.js:176:11)
+        message: 'Path `source` is required.',
+        name: 'ValidatorError',
+        properties: [Object],
+        kind: 'required',
+        path: 'source',
+        value: '',
+        reason: undefined,
+        '$isValidatorError': true } },
+  _message: 'collection validation failed',
+  name: 'ValidationError' }
