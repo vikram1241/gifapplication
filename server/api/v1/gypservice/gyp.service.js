@@ -1,14 +1,43 @@
 const request = require('superagent');
 const gifEntity = require('./gyp.entity');
 const logger = require('../../../applogger');
+const config = require('../../../config');
 
-const getMyGypVideo = function(limit, searchQuery, done){
-  //http://api.giphy.com/v1/gifs/search?q=funny+baby&api_key=GnpBqlCbplP7dUdp8K6XdtWeE1XD5Zff&limit=${limit}
-  let url = `http://api.giphy.com/v1/gifs/`;
-  let extension = (searchQuery === '') ? `trending?api_key=GnpBqlCbplP7dUdp8K6XdtWeE1XD5Zff&limit=${limit}` : `search?q=${searchQuery}&api_key=GnpBqlCbplP7dUdp8K6XdtWeE1XD5Zff&limit=${limit}`;
-	console.log(`${url}/${extension}`)
+
+const getTrendingGypVideo = function(limit, done){
+
   request
-	 .get(`http://api.giphy.com/v1/gifs/${extension}`)
+   .get(`${config.API_URL}/trending?api_key=${config.API_KEY}&limit=${limit}`)
+   .end((err, res) => {
+      let gypColln = {
+        gyp: []
+      };
+
+      if (err) {
+        let msg = "";
+        if(res && res.body) {
+          msg = res.body;
+        } else if (err.response) {
+          msg = `Something wrong ${err.response.statusText}`;
+        } else {
+          msg = 'Something wrong, possible network issues or server not responding..!'
+        }
+        logger.error('Cannot get list of gif:', msg, " for ", limit);
+        done(null, gypColln);
+        return;
+      }
+      done(null, res.body);
+      return;
+   })
+}
+
+// getting gif which matches to search query
+const getMyGypVideo = function(limit, searchQuery, done){
+
+  let URL = `${config.API_URL}/search?q=${searchQuery}&api_key=${config.API_KEY}&limit=${limit}`;
+  logger.debug("search url", URL);
+	request
+	 .get(URL)
 	 .end((err, res) => {
       let gypColln = {
         gyp: []
@@ -23,11 +52,13 @@ const getMyGypVideo = function(limit, searchQuery, done){
         } else {
           msg = 'Something wrong, possible network issues or server not responding..!'
         }
-        console.log('Cannot get list of assignment names:', msg, " for ", limit);
-        return done(err);
+        logger.error('Cannot get list of gif', msg, " for ", limit);
+        done(null, gypColln);
+        return;
       }
-      console.log("this is the response coming", res.body);
-      return done(null, res.body);
+
+      done(null, res.body);
+      return;
 	 })
 }
 
@@ -43,7 +74,7 @@ const saveMyFavourites = function(favourites, done){
 
   gifModel.save(function(err, savedGif) {
     if (err) {
-      logger.debug("Error in saving favourite gif ", err);
+      logger.error("Error in saving favourite gif ", err);
       done(err);
     } else {
       done(null, savedGif);
@@ -65,6 +96,7 @@ const getMyFavourites = function(limit, done){
 }
 
 module.exports = {
+  getTrendingGypVideo,
 	getMyGypVideo,
   saveMyFavourites,
   getMyFavourites

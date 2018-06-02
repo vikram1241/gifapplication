@@ -15,7 +15,7 @@
     {
       "type": "file",
       "level": "debug",
-      "filename": "hobbes-app.log",
+      "filename": "gif-app.log",
       "pattern": "-yyyy-MM-dd",
       "layout":
       {

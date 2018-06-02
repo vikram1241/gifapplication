@@ -17,12 +17,13 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      gifColln : undefined,
+      gifColln : [],
       error: null,
       unauthorized: null,
       collnQueryInProgress: false,
       open: false,
-      serachGifColln: undefined
+      serachGifColln: [],
+      searchCollnProgress: false
     };
 
     this.styles = {
@@ -50,7 +51,7 @@ export default class App extends React.Component {
       collnQueryInProgress: true
     })
 
-    let gifUrl = `/api/v1/gyp/`;
+    let gifUrl = `/api/v1/gyp/trending`;
 
     request
       .get(gifUrl)
@@ -122,20 +123,62 @@ export default class App extends React.Component {
   handleSearchQuery = (event) => {
     let searchQuery = event.target.value;
 
-    let gifUrl = `/api/v1/gyp/?search=${searchQuery}`;
-    request
-      .get(gifUrl)
-      .end((err, res) => {
-        if(err) {
-          let {msg, unauthorized} = HTTPErrorNormalizer.normalizeError(err, res);
-          return this.setState({unauthorized: unauthorized, error: msg});
-        } else {
-          this.setState({
-            serachGifColln : res.body.data,
-            collnQueryInProgress: false
-          })
-        }
-    })
+    if(searchQuery.length <= 3){
+      return this.setState({ serachGifColln: []});
+    } else {
+
+      this.setState({
+        searchCollnProgress: true
+      })
+
+      let gifUrl = `/api/v1/gyp/${searchQuery}`;
+      request
+        .get(gifUrl)
+        .end((err, res) => {
+          if(err) {
+            let {msg, unauthorized} = HTTPErrorNormalizer.normalizeError(err, res);
+            return this.setState({unauthorized: unauthorized, error: msg});
+          } else {
+            this.setState({
+              serachGifColln : res.body.data,
+              searchCollnProgress: false
+            })
+          }
+      })
+    }
+  }
+
+  gifListNotFound = () => {
+    return (
+      <Grid fluid>
+        <Row center="xs">
+          <Col xs={12}>
+            <Row middle="xs">
+              <Col xs={12}>
+                <div style={this.styles.placeHolder}>
+                  <b>{ "Try Other" }</b>
+                  <p>{" Requested GIF videos not there ....!"}</p>
+                </div>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Grid>
+    )
+  }
+
+  collnProgress = () => {
+    return(
+      <Grid fluid>
+        <Row center="xs">
+          <Col xs={12}>
+            <div style={{padding: "200px"}}>
+              <LinearProgress mode="indeterminate"/>
+            </div>
+          </Col>
+        </Row>
+      </Grid>
+    )
   }
 
   render() {
@@ -160,17 +203,7 @@ export default class App extends React.Component {
     }
 
     if(this.state.collnQueryInProgress) {
-      return(
-        <Grid fluid>
-          <Row center="xs">
-            <Col xs={12}>
-              <div style={{padding: "200px"}}>
-                <LinearProgress mode="indeterminate"/>
-              </div>
-            </Col>
-          </Row>
-        </Grid>
-      )
+      this.collnProgress();
     }
 
     return(
@@ -193,9 +226,14 @@ export default class App extends React.Component {
             </Row>
 
             <Row center="xs">
+            { (this.state.searchCollnProgress) ? this.collnProgress() : (this.state.serachGifColln.length <= 0 ) ?
               <Col xs={10}>
-                {(this.state.gifColln !== undefined || this.state.serachGifColln !== undefined) ? <ShowGifInCard data={(this.state.serachGifColln !== undefined) ? this.state.serachGifColln : this.state.gifColln} keyName={"add to favourite"} actionFunction={this.addToFavouriteList} />: 'currently data not available' }
+                {(this.state.gifColln.length > 0) ? <ShowGifInCard data={ this.state.gifColln} keyName={"add to favourite"} actionFunction={this.addToFavouriteList} /> : this.gifListNotFound() }
+              </Col> :
+              <Col xs={10}>
+                {(this.state.serachGifColln.length > 0) ? <ShowGifInCard data={ this.state.serachGifColln} keyName={"add to favourite"} actionFunction={this.addToFavouriteList} /> : this.gifListNotFound() }
               </Col>
+            }
             </Row>
           </Col>
         </Row>

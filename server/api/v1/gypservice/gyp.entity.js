@@ -12,7 +12,7 @@ let schema = new mongoose.Schema({
 
 schema.index(
   {
-    gifId:1
+    gifId: 1
   },{
     unique: true
   }

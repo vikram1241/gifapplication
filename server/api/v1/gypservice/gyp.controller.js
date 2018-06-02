@@ -1,5 +1,9 @@
 const gypService = require('./gyp.service');
 
+const getTrendingGypVideo = function(limit, searchQuery, done){
+	gypService.getTrendingGypVideo(limit, searchQuery, done);
+}
+
 const getMyGypVideo = function(limit, searchQuery, done){
 	gypService.getMyGypVideo(limit, searchQuery, done);
 }
@@ -13,6 +17,7 @@ const getMyFavourites = function(limit, done){
 }
 
 module.exports = {
+	getTrendingGypVideo,
 	getMyGypVideo,
 	saveMyFavourites,
 	getMyFavourites
