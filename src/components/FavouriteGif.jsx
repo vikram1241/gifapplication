@@ -56,8 +56,8 @@ export default class FavouriteGif extends React.Component {
 		 })
 	}
 
-	deletFromFavouriteList = (index) => {
-    let selectedGif = this.state.gifColln[index];
+	deletFromFavouriteList = (data) => {
+    let selectedGif = data;
 
 /*    request
      .post(`/api/v1/gyp/`)
@@ -141,8 +141,8 @@ export default class FavouriteGif extends React.Component {
         <Row start="xs">
           <Col xs={12} md={12} lg={11}>
             <Row center="xs">
-              <Col xs={8}>
-                {(this.state.favourites.length > 0) ? <ShowGifInCard data={this.state.favourites} keyName={"Delete"} actionFunction={this.deletFromFavouriteList}/>: this.favouriteListNotFound() }
+              <Col xs={10}>
+                {(this.state.favourites.length > 0) ? this.state.favourites.map((data, index) => { return (<div key={index}> <ShowGifInCard data={data} keyName={"Delete"} actionFunction={this.deletFromFavouriteList}/> </div>) }): this.favouriteListNotFound() }
               </Col>
             </Row>
           </Col>

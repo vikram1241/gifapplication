@@ -68,8 +68,8 @@ export default class App extends React.Component {
     })
   }
 
-  addToFavouriteList = (index) => {
-    let selectedGif = this.state.gifColln[index];
+  addToFavouriteList = (data) => {
+    let selectedGif = data;
 
     request
      .post(`/api/v1/gyp/favourites`)
@@ -241,10 +241,10 @@ export default class App extends React.Component {
             <Row center="xs">
             { (this.state.searchCollnProgress) ? this.collnProgress() : (this.state.serachGifColln.length <= 0 ) ?
               <Col xs={10}>
-                {(this.state.gifColln.length > 0) ? <ShowGifInCard data={ this.state.gifColln} keyName={"add to favourite"} actionFunction={this.addToFavouriteList} /> : this.gifListNotFound() }
+                {(this.state.gifColln.length > 0) ? this.state.gifColln.map((data, index) => { return (<div key={index}> <ShowGifInCard data={data} keyName={"add to favourite"} actionFunction={this.addToFavouriteList} /> </div>)}) : this.gifListNotFound() }
               </Col> :
               <Col xs={10}>
-                {(this.state.serachGifColln.length > 0) ? <ShowGifInCard data={ this.state.serachGifColln} keyName={"add to favourite"} actionFunction={this.addToFavouriteList} /> : this.gifListNotFound() }
+                {(this.state.serachGifColln.length > 0) ? this.state.serachGifColln.map((data, index) => { return (<div key={index}> <ShowGifInCard data={data} keyName={"add to favourite"} actionFunction={this.addToFavouriteList} /> </div>)}) : this.gifListNotFound() }
               </Col>
             }
             </Row>
