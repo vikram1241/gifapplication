@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const helmet = require('helmet');
-const shareSocketConnection = require('./socketServer');
+const shareSocketConnection = require('../socketServer');
 
 const app = express();
 const io = require('socket.io')(app);
